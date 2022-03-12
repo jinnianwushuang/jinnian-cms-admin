@@ -1,29 +1,49 @@
 const routes = [
   {
     path: '/',
+    component: () => import('src/pages/login/login1.vue')
+  },
+  {
+    path: '/main1',
     component: () => import('layouts/MainLayout.vue'),
+    children:[
+      {
+        path: '',
+        name:'dashboard',
+       component: () => import('src/pages/dashboard/dashboard1.vue')
+      },
+      {
+        path: 'user',
+        name:'user',
+       component: () => import('src/pages/user/index.vue')
+      },
+    ]
+  },
+  {
+    path: '/main2',
+    component: () => import('layouts/MainLayout2.vue'),
     children: [
-      {path: '', component: () => import('pages/Dashboard.vue')},
-      {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
-      {path: '/Profile', component: () => import('pages/UserProfile.vue')},
-      {path: '/Map', component: () => import('pages/Map.vue')},
-      {path: '/MapMarker', component: () => import('pages/MapMarker.vue')},
-      {path: '/TreeTable', component: () => import('pages/TreeTable.vue')},
-      {path: '/StreetView', component: () => import('pages/StreetView.vue')},
-      {path: '/Cards', component: () => import('pages/Cards.vue')},
-      {path: '/Tables', component: () => import('pages/Tables.vue')},
-      {path: '/Contact', component: () => import('pages/Contact.vue')},
-      {path: '/Checkout', component: () => import('pages/Checkout.vue')},
-      {path: '/Ecommerce', component: () => import('pages/ProductCatalogues.vue')},
-      {path: '/Pagination', component: () => import('pages/Pagination.vue')},
-      {path: '/Charts', component: () => import('pages/Charts.vue')},
-      {path: '/Calendar', component: () => import('pages/Calendar.vue')},
-      {path: '/Directory', component: () => import('pages/Directory.vue')},
-      {path: '/Footer', component: () => import('pages/Footer.vue')},
-      {path: '/CardHeader', component: () => import('pages/CardHeader.vue')},
+      {path: '', component: () => import('src/pages3/Dashboard.vue')},
+      {path: '/Dashboard2', component: () => import('src/pages3/Dashboard2.vue')},
+      {path: '/Profile', component: () => import('src/pages3/UserProfile.vue')},
+      {path: '/Map', component: () => import('src/pages3/Map.vue')},
+      {path: '/MapMarker', component: () => import('src/pages3/MapMarker.vue')},
+      {path: '/TreeTable', component: () => import('src/pages3/TreeTable.vue')},
+      {path: '/StreetView', component: () => import('src/pages3/StreetView.vue')},
+      {path: '/Cards', component: () => import('src/pages3/Cards.vue')},
+      {path: '/Tables', component: () => import('src/pages3/Tables.vue')},
+      {path: '/Contact', component: () => import('src/pages3/Contact.vue')},
+      {path: '/Checkout', component: () => import('src/pages3/Checkout.vue')},
+      {path: '/Ecommerce', component: () => import('src/pages3/ProductCatalogues.vue')},
+      {path: '/Pagination', component: () => import('src/pages3/Pagination.vue')},
+      {path: '/Charts', component: () => import('src/pages3/Charts.vue')},
+      {path: '/Calendar', component: () => import('src/pages3/Calendar.vue')},
+      {path: '/Directory', component: () => import('src/pages3/Directory.vue')},
+      {path: '/Footer', component: () => import('src/pages3/Footer.vue')},
+      {path: '/CardHeader', component: () => import('src/pages3/CardHeader.vue')},
 
       // Not completed yet
-      // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
+      // {path: '/Taskboard', component: () => import('src/pages3/TaskBoard.vue')},
     ]
   },
 
@@ -31,7 +51,7 @@ const routes = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
+    component: () => import('src/pages3/Error404.vue')
   },
   {
     path: '/Mail',
@@ -39,23 +59,20 @@ const routes = [
   },
   {
     path: '/Maintenance',
-    component: () => import('pages/Maintenance.vue')
+    component: () => import('src/pages3/Maintenance.vue')
   },
   {
     path: '/Pricing',
-    component: () => import('pages/Pricing.vue')
+    component: () => import('src/pages3/Pricing.vue')
   },
-  {
-    path: '/Login-1',
-    component: () => import('pages/Login-1.vue')
-  },
+
   {
     path: '/Lock',
-    component: () => import('pages/LockScreen.vue')
+    component: () => import('src/pages3/LockScreen.vue')
   },
   {
     path: '/Lock-2',
-    component: () => import('pages/LockScreen-2.vue')
+    component: () => import('src/pages3/LockScreen-2.vue')
   }
 ]
 
