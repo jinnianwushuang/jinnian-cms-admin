@@ -1,3 +1,8 @@
+<!--
+ * @Date           : 2022-03-13 03:02:55
+ * @FilePath       : /jinnian-cms-admin/src/pages/login/login1.vue
+ * @Description    :
+-->
 <template>
   <q-layout>
     <q-page-container>
@@ -60,7 +65,7 @@ export default defineComponent({
   },
   methods: {
    async login() {
-      
+
       let params={
         name: this.username,
         password: this.password,
@@ -69,9 +74,9 @@ export default defineComponent({
      console.log('//管理员登录  res--', res );
 
      this.$router.push({
-       name:'dashboard'
+       name:'user'
      })
-      
+
     }
   },
 })

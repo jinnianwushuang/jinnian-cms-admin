@@ -1,5 +1,10 @@
+<!--
+ * @Date           : 2022-03-10 18:36:58
+ * @FilePath       : /jinnian-cms-admin/src/layouts/MainLayout.vue
+ * @Description    :
+-->
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -11,7 +16,7 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          Quasar App
+          {{title}}
         </q-toolbar-title>
         <q-space/>
         <div class="q-gutter-sm row items-center no-wrap">
@@ -19,7 +24,7 @@
                  @click="$q.fullscreen.toggle()"
                  v-if="$q.screen.gt.sm">
           </q-btn>
-     
+
           <q-btn round dense flat color="white" icon="notifications">
             <q-badge color="red" text-color="white" floating>
               5
@@ -48,15 +53,15 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      width="240"
+      width="200"
       class="bg-primary text-white"
     >
       <q-list>
-    
-   
-        <q-item 
+
+
+        <q-item
          v-for="(item1,index1) in menu_config"
-          :key="index1" 
+          :key="index1"
           @click="handle_menu_item_click(item1)"
           class=" cursor-pointer"
           active-class="q-item-no-link-highlighting"
@@ -69,7 +74,7 @@
           </q-item-section>
         </q-item>
 
-<!--       
+<!--
         <q-expansion-item
           icon="pages"
           label="Pages"
@@ -126,9 +131,9 @@
             </q-item>
           </q-list>
         </q-expansion-item>
-      
+
        -->
-      
+
 
 
 
@@ -157,6 +162,11 @@ export default defineComponent({
     EssentialLink,
     Messages
   },
+  data() {
+    return {
+      title: process.env.title
+    }
+  },
 
   setup () {
     const leftDrawerOpen = ref(false)
@@ -176,8 +186,8 @@ export default defineComponent({
            this.$router.push({
        name:item.name
      })
-      
-      
+
+
     }
   },
 })

@@ -16,21 +16,21 @@ export default function pagination_composables() {
   const currentPage = ref(1);
   const pageSize = ref(10);
   const total = ref(500);
-  const onShowSizeChange = (current, page_size) => {
-    console.log(current, page_size);
-    pageSize.value =   page_size;
-  };
-  const onChange = (pageNumber) => {
-    console.log("Page: ", pageNumber);
-    currentPage.value = pageNumber;
-  };
+  // const onShowSizeChange = (current, page_size) => {
+  //   console.log(current, page_size);
+  //   pageSize.value =   page_size;
+  // };
+  // const onChange = (pageNumber) => {
+  //   console.log("Page: ", pageNumber);
+  //   currentPage.value = pageNumber;
+  // };
 
   return {
     pageSizeOptions,
     currentPage,
     pageSize,
     total,
-    onShowSizeChange,
-    onChange,
+    // onShowSizeChange,
+    // onChange,
   };
 }

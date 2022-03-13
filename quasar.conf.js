@@ -1,4 +1,9 @@
 /*
+ * @Date           : 2022-03-10 18:36:58
+ * @FilePath       : /jinnian-cms-admin/quasar.conf.js
+ * @Description    :
+ */
+/*
  * This file runs in a Node context (it's NOT transpiled by Babel), so use only
  * the ES6 features that are supported by your Node version. https://node.green/
  */
@@ -7,6 +12,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
 const { configure } = require('quasar/wrappers');
+const TITLE ='錦年CMS系统管理后台'
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -21,7 +27,7 @@ module.exports = configure(function (/* ctx */) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'i18n',
-      'axios',
+      "ant-design-vue"
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -43,6 +49,10 @@ module.exports = configure(function (/* ctx */) {
       'material-icons', // optional, you are not bound to it
     ],
 
+    htmlVariables:{
+    title: TITLE
+    },
+
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
@@ -62,6 +72,9 @@ module.exports = configure(function (/* ctx */) {
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
+      env:{
+        title:TITLE
+      },
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain

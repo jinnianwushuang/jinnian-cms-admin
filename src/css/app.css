@@ -1,1 +1,15 @@
 /* app global css */
+
+
+.q-table th{
+  font-weight: 800;
+    font-size: 14px;
+    /* user-select: text; */
+}
+
+.w200{
+  width: 200px;
+}
+.w240{
+  width: 240px;
+}

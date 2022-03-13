@@ -1,30 +1,30 @@
 /*
  * @Author         : your name
  * @Date           : 2022-03-12 22:19:04
- * @LastEditTime   : 2022-03-12 23:59:43
+ * @LastEditTime   : 2022-03-13 11:55:17
  * @LastEditors    : Please set LastEditors
  * @Description    : 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath       : \front-web-cms-admin\src\pages\user\config\index.js
+ * @FilePath       : /jinnian-cms-admin/src/pages/user/config/index.js
  */
 
 
 export const columns = [
-  { name: '_id', align: 'center', label: '_id', field: '_id', sortable: true },
+  { name: '_id', align: 'left', label: '_id', field: '_id', sortable: true },
     {
       name: 'name',
       required: true,
-      label: 'Dessert (100g serving)',
+      label: '名字',
       align: 'left',
       field: row => row.name,
       format: val => `${val}`,
       sortable: true
     },
-    { name: 'age', align: 'center', label: 'age', field: 'age', sortable: true },
- 
-    { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-    { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+    { name: 'age', align: 'left', label: 'age', field: 'age', sortable: true },
+
+
+    { name: 'handle', align: 'left', label: '操作', field: 'handle'  ,style: 'width: 160px',  }
   ]
-  
+
 
   export const mock_rows = [
     {
@@ -128,4 +128,3 @@ export const columns = [
       iron: '6%'
     }
   ]
- 
