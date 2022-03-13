@@ -5,6 +5,7 @@
 -->
 <template>
   <q-layout view="hHh Lpr lFf">
+        <q-resize-observer @resize="onResize" />
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -53,7 +54,7 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      width="200"
+      :width="200"
       class="bg-primary text-white"
     >
       <q-list>
@@ -64,6 +65,7 @@
           :key="index1"
           @click="handle_menu_item_click(item1)"
           class=" cursor-pointer"
+           :active="current_route_name == item1.name"
           active-class="q-item-no-link-highlighting"
           >
           <q-item-section avatar>
@@ -154,7 +156,7 @@ import Messages from "./Messages";
 import { defineComponent, ref } from 'vue'
 
 import menuConfig from  "src/config/menu.js"
-
+import { mapActions } from "vuex";
 export default defineComponent({
   name: 'MainLayout',
 
@@ -180,7 +182,15 @@ export default defineComponent({
       }
     }
   },
+    computed: {
+    current_route_name() {
+      return this.$route.name;
+    },
+  },
   methods: {
+        ...mapActions([
+      "set_window_size", //also supports payload `this.nameOfAction(amount)`
+    ]),
     handle_menu_item_click(item){
 
            this.$router.push({
@@ -190,5 +200,9 @@ export default defineComponent({
 
     }
   },
+     onResize(size) {
+      console.log(size);
+      this.set_window_size(size);
+    },
 })
 </script>

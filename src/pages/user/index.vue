@@ -1,48 +1,45 @@
-<!--
- * @Author         : your name
- * @Date           : 2022-03-12 21:58:23
- * @LastEditTime   : 2022-03-13 12:16:40
- * @LastEditors    : Please set LastEditors
- * @Description    : 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath       : /jinnian-cms-admin/src/pages/user/index.vue
--->
+
 <template>
   <div class="q-pa-md">
-    <!-- 导航栏 -->
-    <div class="q-py-xs">
-      <q-breadcrumbs>
-        <q-breadcrumbs-el label="主页面" />
-        <q-breadcrumbs-el label="用户模块" />
-      </q-breadcrumbs>
+    <div ref="tableHeader">
+      <!-- 导航栏 -->
+      <div class="q-py-xs">
+        <q-breadcrumbs>
+          <q-breadcrumbs-el label="主页面" />
+          <q-breadcrumbs-el label="用户模块" />
+        </q-breadcrumbs>
+      </div>
+      <!-- 搜索区域 -->
+      <div class="row q-my-sm">
+        <q-input outlined v-model="search_form.name" dense class="w200 q-mr-md">
+          <template v-slot:prepend> 名字 </template>
+        </q-input>
+        <q-space />
+        <q-btn
+          color="primary"
+          glossy
+          class="q-mr-md"
+          @click="hadle_click_search"
+          label="搜索"
+        />
+        <q-btn
+          color="deep-orange"
+          glossy
+          @click="hadle_reset_search_form"
+          label="重置"
+        />
+      </div>
     </div>
-    <!-- 搜索区域 -->
-    <div class="row q-my-sm">
-      <q-input outlined v-model="search_form.name" dense class="w200 q-mr-md">
-        <template v-slot:prepend> 名字 </template>
-      </q-input>
-      <q-space />
-      <q-btn
-        color="primary"
-        glossy
-        class="q-mr-md"
-        @click="hadle_click_search"
-        label="搜索"
-      />
-      <q-btn
-        color="deep-orange"
-        glossy
-        @click="hadle_reset_search_form"
-        label="重置"
-      />
-    </div>
-
     <q-table
+      class="sticky-header-table"
       :rows="table_data"
       :columns="columns"
       row-key="name"
       table-header-class="bg-grey-4   text-weight-bolder"
       hide-pagination
       hide-bottom
+      v-model:pagination="pagination"
+      :style="`max-height:${scroll_area_height}px`"
     >
       <template v-slot:body-cell-handle="props">
         <q-td :props="props">
@@ -86,34 +83,50 @@
       </a-pagination>
     </div>
     <!-- 编辑弹窗 -->
-        <q-dialog v-model="show_dialog_edit">
-      <q-card class="my-card">
-            <q-card-section>
-              <div class="row">
-                <div>编辑数据</div>
-                <q-space/>
-                    <q-btn flat round icon="close" v-close-popup />
-              </div>
-
-            </q-card-section>
-
-
-
-        <q-card-section class="q-pt-none">
-          <div class="text-subtitle1">
-            $・Italian, Cafe
+    <q-dialog v-model="show_dialog_edit">
+      <q-card class="my-card w600 q-px-md">
+        <q-card-section class="no-padding">
+          <div class="row">
+            <div class="text-weight-bolder lh40">编辑数据</div>
+            <q-space />
+            <q-btn flat round icon="close" v-close-popup />
           </div>
-          <div class="text-caption text-grey">
-            Small plates, salads & sandwiches in an intimate setting.
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-section class="q-py-md">
+          <div class="row">
+            <div class="w120 form-item-label">名字</div>
+            <q-input
+              ref="inputRef"
+              class="col"
+              filled
+              dense
+              v-model="detail_obj.name"
+              :rules="[
+                (val) => val.length <= 32 || 'Please use maximum 32 characters',
+              ]"
+            />
           </div>
         </q-card-section>
 
         <q-separator />
 
         <q-card-actions align="right">
-          <q-btn v-close-popup   color="primary" label="确定" />
-          <q-btn v-close-popup    color="deep-orange"  glossy  label="取消" />
-
+          <q-btn
+            v-close-popup
+            color="primary"
+            @click="handle_conform_edit"
+            label="确定"
+          />
+          <q-btn
+            v-close-popup
+            color="deep-orange"
+            glossy
+            @click="handle_cancel_edit"
+            label="取消"
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -121,34 +134,40 @@
 </template>
 
 <script>
-import { columns, mock_rows } from "./config/index";
+import { columns } from "./config/index";
 
 import pagination_composables from "src/composables/pagination.js";
 
 import { api_user } from "src/api";
 
 import { defineComponent, ref } from "vue";
+import { window_size_mixin } from "src/mixin/index";
 export default {
+  components: {},
+  mixins: [window_size_mixin],
   data() {
     return {
       //显示编辑弹窗
-      show_dialog_edit:false,
+      show_dialog_edit: false,
       //编辑弹窗内的数据
-      detail_obj:{},
+      detail_obj: {},
+      //搜索表单
       search_form: {
         name: "",
       },
+      //表格数据
       table_data: [],
+
     };
   },
-  components: {},
+
   setup() {
-    let { pageSizeOptions, currentPage, pageSize, total } =
+    let { pageSizeOptions, currentPage, pageSize, total, pagination } =
       pagination_composables();
 
     return {
       columns,
-      rows: mock_rows,
+      pagination,
       pageSizeOptions,
       currentPage,
       pageSize,
@@ -158,12 +177,14 @@ export default {
   created() {
     this.init_table_data();
   },
+
   methods: {
     /**
      * 列表查询
      */
     async init_table_data() {
       let params = {
+        name: this.search_form.name,
         currentPage: this.currentPage,
         pageSize: this.pageSize,
       };
@@ -174,6 +195,7 @@ export default {
 
       this.table_data = data.docs;
       this.total = data.total;
+      this.pagination.rowsNumber = data.total;
     },
     /**
      * 创建
@@ -195,6 +217,7 @@ export default {
      */
     onShowSizeChange(current, page_size) {
       console.log(current, page_size);
+      this.pagination.rowsPerPage = page_size;
       this.pageSize = page_size;
       this.init_table_data();
     },
@@ -204,6 +227,7 @@ export default {
      */
     onChange(pageNumber) {
       console.log("Page: ", pageNumber);
+      this.pagination.page = pageNumber;
       this.currentPage = pageNumber;
       this.init_table_data();
     },
@@ -233,10 +257,30 @@ export default {
      * 点击 编辑 一条数据
      */
     handle_edit_record(record) {
-      this.detail_obj= record
-      this.show_dialog_edit =true
+      this.detail_obj = record;
+      this.show_dialog_edit = true;
       console.log("record", record._id);
     },
+    /**
+     *编辑弹窗  确定
+     *
+     */
+    async handle_conform_edit() {
+      let params = {
+        ...this.detail_obj,
+      };
+      let res = await api_user.post_user_update(params);
+      let { code, msg, data } = res.data;
+      this.init_table_data();
+    },
+    /**
+     * 编辑弹窗  取消
+     */
+    handle_cancel_edit() {
+      this.show_dialog_edit = false;
+      this.detail_obj = {};
+    },
+
   },
 };
 </script>

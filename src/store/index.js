@@ -11,11 +11,11 @@ import { createStore } from 'vuex'
  * async/await or return a Promise which resolves
  * with the Store instance.
  */
-
+import window_resize from "./module/window_resize"
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
-      // example
+      window_resize
     },
 
     // enable strict mode (adds overhead!)
