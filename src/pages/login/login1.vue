@@ -70,7 +70,7 @@ export default defineComponent({
         name: this.username,
         password: this.password,
       }
-     let res=  await api_admin.post_admin_login(params)
+     let res=  await api_admin.handle_login(params)
      console.log('//管理员登录  res--', res );
 
      this.$router.push({

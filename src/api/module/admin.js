@@ -11,6 +11,5 @@ import axios  from "src/api/commom/axioswapper.js"
 
 let prefix=''
 //管理员登录接口
-export const post_admin_login = (params, url='/admin/login') => axios.post(`${prefix}${url}`, params)
+export const handle_login = (params, url='/admin/login') => axios.post(`${prefix}${url}`, params)
 
- 

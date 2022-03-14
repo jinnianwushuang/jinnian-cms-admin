@@ -7,12 +7,15 @@
  * @FilePath       : \front-web-cms-admin\src\mixin\index.js
  */
 
- 
-//表格页面专用的 窗口改变 以及表格高度计算 逻辑 
+ // 窗口改变 以及表格高度计算 逻辑
 import window_size_mixin from "./module/window_size"
+//表格 页面 CRUD 基本流程逻辑
+import table_crud_mixin from "./module/table_crud"
 
 
 
 export {
-    window_size_mixin
+    window_size_mixin,
+    table_crud_mixin
+
 }

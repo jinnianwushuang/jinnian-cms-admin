@@ -15,18 +15,21 @@ let prefix =''
 // export const post1 = (params, url) => axios.post(`${prefix}${url}`, params)
 // export const get1 = (params, url) => axios.get(`${prefix}${url}`, { params: {...params } })
 
-//查询
 
-export const get_user_all = (params, url='/user/all') => axios.get(`${prefix}${url}`, { params: {...params } })
-//详情
+// 增加
 
-export const get_user_info = (params, url='/user/info') => axios.get(`${prefix}${url}`, { params: {...params } })
-
+export const handle_create = (params, url="/user/create") => axios.post(`${prefix}${url}`, params)
 // 删除
-export const post_user_delete = (params, url='/user/delete') => axios.post(`${prefix}${url}`, params)
-// 创建
-
-export const post_user_create = (params, url="/user/create") => axios.post(`${prefix}${url}`, params)
+export const handle_delete = (params, url='/user/delete') => axios.post(`${prefix}${url}`, params)
 
 //修改
-export const post_user_update = (params, url="/user/update") => axios.post(`${prefix}${url}`,  params)
+export const handle_update = (params, url="/user/update") => axios.post(`${prefix}${url}`,  params)
+
+
+//查询
+
+export const handle_read = (params, url='/user/all') => axios.get(`${prefix}${url}`, { params: {...params } })
+//详情
+
+export const handle_info = (params, url='/user/info') => axios.get(`${prefix}${url}`, { params: {...params } })
+

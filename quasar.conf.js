@@ -27,6 +27,7 @@ module.exports = configure(function (/* ctx */) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'i18n',
+      "lodash",
       "ant-design-vue"
     ],
 
@@ -87,7 +88,7 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 8080,
+      port: 38888,
       open: true // opens browser window automatically
     },
 

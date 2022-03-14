@@ -5,7 +5,7 @@
 -->
 <template>
   <q-layout view="hHh Lpr lFf">
-        <q-resize-observer @resize="onResize" />
+    <q-resize-observer @resize="onResize" />
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -17,33 +17,41 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          {{title}}
+          {{ title }}
         </q-toolbar-title>
-        <q-space/>
+        <q-space />
         <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn round dense flat color="white" :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
-                 @click="$q.fullscreen.toggle()"
-                 v-if="$q.screen.gt.sm">
+          <q-btn
+            round
+            dense
+            flat
+            color="white"
+            :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+            @click="$q.fullscreen.toggle()"
+            v-if="$q.screen.gt.sm"
+          >
           </q-btn>
 
           <q-btn round dense flat color="white" icon="notifications">
-            <q-badge color="red" text-color="white" floating>
-              5
-            </q-badge>
-            <q-menu
-            >
+            <q-badge color="red" text-color="white" floating> 5 </q-badge>
+            <q-menu>
               <q-list style="min-width: 100px">
                 <messages></messages>
                 <q-card class="text-center no-shadow no-border">
-                  <q-btn label="View All" style="max-width: 120px !important;" flat dense
-                         class="text-indigo-8"></q-btn>
+                  <q-btn
+                    label="View All"
+                    style="max-width: 120px !important"
+                    flat
+                    dense
+                    class="text-indigo-8"
+                  ></q-btn>
                 </q-card>
               </q-list>
             </q-menu>
           </q-btn>
           <q-btn round flat>
             <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+              <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
             </q-avatar>
           </q-btn>
         </div>
@@ -58,25 +66,23 @@
       class="bg-primary text-white"
     >
       <q-list>
-
-
         <q-item
-         v-for="(item1,index1) in menu_config"
+          v-for="(item1, index1) in menu_config"
           :key="index1"
           @click="handle_menu_item_click(item1)"
-          class=" cursor-pointer"
-           :active="current_route_name == item1.name"
+          class="cursor-pointer"
+          :active="current_route_name == item1.name"
           active-class="q-item-no-link-highlighting"
-          >
+        >
           <q-item-section avatar>
-            <q-icon name="dashboard"/>
+            <q-icon name="dashboard" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>{{item1.label }}</q-item-label>
+            <q-item-label>{{ item1.label }}</q-item-label>
           </q-item-section>
         </q-item>
 
-<!--
+        <!--
         <q-expansion-item
           icon="pages"
           label="Pages"
@@ -135,11 +141,6 @@
         </q-expansion-item>
 
        -->
-
-
-
-
-
       </q-list>
     </q-drawer>
 
@@ -150,59 +151,56 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
+import EssentialLink from "components/EssentialLink.vue";
 import Messages from "./Messages";
 
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref } from "vue";
 
-import menuConfig from  "src/config/menu.js"
+import menuConfig from "src/config/menu.js";
 import { mapActions } from "vuex";
 export default defineComponent({
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
     EssentialLink,
-    Messages
+    Messages,
   },
   data() {
     return {
-      title: process.env.title
-    }
+      title: process.env.title,
+    };
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
-    const menu_config = ref(menuConfig)
+  setup() {
+    const leftDrawerOpen = ref(false);
+    const menu_config = ref(menuConfig);
 
     return {
       leftDrawerOpen,
       menu_config,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
   },
-    computed: {
+  computed: {
     current_route_name() {
       return this.$route.name;
     },
   },
   methods: {
-        ...mapActions([
+    ...mapActions([
       "set_window_size", //also supports payload `this.nameOfAction(amount)`
     ]),
-    handle_menu_item_click(item){
-
-           this.$router.push({
-       name:item.name
-     })
-
-
-    }
-  },
-     onResize(size) {
+    handle_menu_item_click(item) {
+      this.$router.push({
+        name: item.name,
+      });
+    },
+    onResize(size) {
       console.log(size);
       this.set_window_size(size);
     },
-})
+  },
+});
 </script>
