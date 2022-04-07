@@ -1,3 +1,8 @@
+/*
+ * @Date           : 2022-04-05 14:23:04
+ * @LastEditTime   : 2022-04-05 15:20:51
+ * @Description    :  
+ */
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
 
@@ -12,10 +17,12 @@ import { createStore } from 'vuex'
  * with the Store instance.
  */
 import window_resize from "./module/window_resize"
+import questionTopic from "./module/questionTopic"
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
-      window_resize
+      window_resize,
+      questionTopic
     },
 
     // enable strict mode (adds overhead!)

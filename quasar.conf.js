@@ -12,7 +12,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
 const { configure } = require('quasar/wrappers');
-const TITLE ='錦年CMS系统管理后台'
+const TITLE ='系统管理后台'
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -28,7 +28,8 @@ module.exports = configure(function (/* ctx */) {
     boot: [
       'i18n',
       "lodash",
-      "ant-design-vue"
+      "utils",
+      "ant-design-vue",
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -75,7 +76,9 @@ module.exports = configure(function (/* ctx */) {
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
       env:{
-        title:TITLE
+        title:TITLE,
+        API_PREFIX_1:'/backend'
+
       },
 
       // https://quasar.dev/quasar-cli/handling-webpack
@@ -94,7 +97,11 @@ module.exports = configure(function (/* ctx */) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      config: {},
+      config: {
+        notify: {
+          position :"top"
+         }
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -110,7 +117,9 @@ module.exports = configure(function (/* ctx */) {
       plugins: [
         'AppFullscreen',
         'Notify',
-        'Loading'
+        'Loading',
+        'LocalStorage',
+        'SessionStorage'
       ]
     },
 

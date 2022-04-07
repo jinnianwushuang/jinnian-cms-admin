@@ -1,3 +1,8 @@
+<!--
+ * @Date           : 2022-03-28 12:50:29
+ * @LastEditTime   : 2022-04-05 18:55:00
+ * @Description    :  
+-->
 <template>
   <div class="q-pa-md">
     <div ref="tableHeader">
@@ -10,11 +15,16 @@
       </div>
       <!-- 搜索区域 -->
       <div class="row q-my-sm" v-if="show_search_form_area">
-        <q-input outlined v-model="search_form.name" dense class="w200 q-mr-md">
-          <template v-slot:prepend> 名字 </template>
+        <q-input
+          outlined
+          v-model="search_form.name"
+          label="名字"
+          dense
+          class="w200 q-mr-md"
+        >
         </q-input>
         <q-space />
-         <q-btn
+        <q-btn
           color="secondary"
           glossy
           class="q-mr-md"
@@ -94,7 +104,9 @@
       <q-card class="my-card w600 q-px-md">
         <q-card-section class="no-padding">
           <div class="row">
-            <div class="text-weight-bolder lh40">{{detail_obj.id?'编辑':'新建'}}数据</div>
+            <div class="text-weight-bolder lh40">
+              {{ detail_obj.id ? "编辑" : "新建" }}数据
+            </div>
             <q-space />
             <q-btn flat round icon="close" v-close-popup />
           </div>
@@ -103,12 +115,11 @@
         <q-card-section class="q-py-md q-gutter-y-md">
           <div class="row">
             <div class="w120 form-item-label">名字</div>
-            <q-input
-              class="col"
-              filled
-              dense
-              v-model="detail_obj.name"
-            />
+            <q-input class="col" filled dense v-model="detail_obj.name" />
+          </div>
+          <div class="row">
+            <div class="w120 form-item-label">密码</div>
+            <q-input class="col" filled dense v-model="detail_obj.password" />
           </div>
         </q-card-section>
         <q-separator />
@@ -129,23 +140,30 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+            <!-- 编辑弹窗 -->
+    <q-dialog v-model="show_dialog_edit" persistent>
+      <EditComponent :detail_obj="detail_obj" @emit-edit="handle_conform_edit" />
+    </q-dialog>
   </div>
 </template>
 <script>
 import { columns } from "./config/index";
 import { api_user } from "src/api/index.js";
-import { window_size_mixin , table_crud_mixin } from "src/mixin/index";
+import { window_size_mixin, table_crud_mixin } from "src/mixin/index";
+import  EditComponent from "./components/edit.vue";
 export default {
-  components: {},
-  mixins: [window_size_mixin , table_crud_mixin],
+  components: {
+    EditComponent
+  },
+  mixins: [window_size_mixin, table_crud_mixin],
   data() {
     return {
-     //列表 表格项配置
+      //列表 表格项配置
       columns,
-
       //编辑弹窗内的数据
       detail_obj: {
         name: "",
+        password: "",
       },
       //搜索表单
       search_form: {

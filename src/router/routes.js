@@ -1,3 +1,13 @@
+/*
+ * @Date           : 2022-04-04 15:55:31
+ * @LastEditTime   : 2022-04-04 16:33:07
+ * @Description    :
+ */
+/*
+ * @Date           : 2022-03-28 14:54:34
+ * @LastEditTime   : 2022-04-04 15:49:51
+ * @Description    :
+ */
 const routes = [
   {
     path: '/',
@@ -7,15 +17,50 @@ const routes = [
     path: '/main',
     component: () => import('layouts/MainLayout.vue'),
     children:[
-      {
-        path: '',
-        name:'dashboard',
-       component: () => import('src/pages/dashboard/dashboard1.vue')
-      },
+      // {
+      //   path: '',
+      //   name:'dashboard',
+      //  component: () => import('src/pages/dashboard/dashboard1.vue')
+      // },
       {
         path: 'user',
         name:'user',
        component: () => import('src/pages/user/index.vue')
+      },
+      {
+        path: 'faq',
+        name:'faq',
+       component: () => import('src/pages/faq/index.vue')
+      },
+      {
+        path: 'questionTopic',
+        name:'questionTopic',
+       component: () => import('src/pages/questionTopic/index.vue')
+      },
+      {
+        path: 'articleTopic',
+        name:'articleTopic',
+       component: () => import('src/pages/articleTopic/index.vue')
+      },  {
+        path: 'assistant',
+        name:'assistant',
+       component: () => import('src/pages/assistant/index.vue')
+      },
+
+      {
+        path: 'article',
+        name:'article',
+       component: () => import('src/pages/article/index.vue')
+      },
+      {
+        path: 'updateRecord',
+        name:'updateRecord',
+       component: () => import('src/pages/updateRecord/index.vue')
+      },
+      {
+        path: 'test',
+        name:'test',
+       component: () => import('src/pages/test/index.vue')
       },
     ]
   },

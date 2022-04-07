@@ -1,6 +1,6 @@
 /*
  * @Date           : 2022-03-14 21:34:32
- * @LastEditTime   : 2022-03-15 01:31:24
+ * @LastEditTime   : 2022-04-05 14:45:35
  * @Description    :
  */
 
@@ -8,7 +8,12 @@
 const temp_promise_fn = new Promise((resolve, reject) => {
   resolve({ data: { code: "", msg: "", data: "" } });
 });
+import ShowBadge from  "src/components/badge/badge.vue"
+
 export default {
+  components: {
+    ShowBadge,
+  },
   data() {
     return {
       //列表 表格项配置
@@ -47,6 +52,8 @@ export default {
       api_fn_update: temp_promise_fn,
       //查询 API
       api_fn_read: temp_promise_fn,
+      //禁用 API 
+      api_fn_disable:temp_promise_fn,
       //翻页器配置
       pagination: {
         sortBy: "desc",
@@ -207,6 +214,8 @@ export default {
      * 点击 查询条件 搜索 按钮
      */
     hadle_click_search() {
+      this.currentPage = 1;
+      this.pagination.page=1
       this.init_table_data();
     },
     /**
@@ -227,7 +236,22 @@ export default {
       };
       let res = await this.api_fn_delete(params);
       let { code, msg, data } = res.data;
+      this.init_table_data();
     },
+   /**
+     * 点击 禁用 一条数据
+     */
+    async handle_disable_record(record) {
+      console.log("record", record.id);
+      let params = {
+        id: record.id,
+      };
+      let res = await this.api_fn_disable(params);
+      let { code, msg, data } = res.data;
+      this.init_table_data();
+    },
+
+    
     /**
      * 点击 编辑 一条数据
      */
@@ -240,21 +264,25 @@ export default {
      *编辑弹窗  确定
      *
      */
-    handle_conform_edit() {
-      if (this.detail_obj.id) {
+    handle_conform_edit(obj) {
+      let params = obj || {
+        ...this.detail_obj,
+      };
+      if (params.id) {
         //修改   确定
-        this.handle_conform_update();
+        this.handle_conform_update(params);
       } else {
         // 新增   确定
-        this.handle_conform_create();
+        this.handle_conform_create(params);
       }
+      this.show_dialog_edit = false;
     },
     /**
      * 新增   确定
      *
      */
-    async handle_conform_create() {
-      let params = {
+    async handle_conform_create(obj) {
+      let params = obj || {
         ...this.detail_obj,
       };
       let res = await this.api_fn_create(params);
@@ -265,8 +293,8 @@ export default {
      * 修改   确定
      *
      */
-    async handle_conform_update() {
-      let params = {
+    async handle_conform_update(obj) {
+      let params = obj || {
         ...this.detail_obj,
       };
       let res = await this.api_fn_update(params);
