@@ -8,11 +8,11 @@
  */
 
 export default [
-    // {
-    //  label:'首页面板',
-    //  name:'dashboard',
-    //  mark:'首页面板'
-    // },
+    {
+     label:'首页面板',
+     name:'dashboard',
+     mark:'首页面板'
+    },
     {
       label:'用户模块',
       name:'user',
@@ -44,11 +44,11 @@ export default [
       name:'updateRecord',
       mark:'更新记录'
      },
-    //  {
-    //   label:'文章管理',
-    //   name:'article',
-    //   mark:'文章管理'
-    //  },
+     {
+      label:'文章管理',
+      name:'article',
+      mark:'文章管理'
+     },
      {
       label:'测试页面',
       name:'test',

@@ -17,11 +17,11 @@ const routes = [
     path: '/main',
     component: () => import('layouts/MainLayout.vue'),
     children:[
-      // {
-      //   path: '',
-      //   name:'dashboard',
-      //  component: () => import('src/pages/dashboard/dashboard1.vue')
-      // },
+      {
+        path: '',
+        name:'dashboard',
+       component: () => import('src/pages/dashboard/dashboard1.vue')
+      },
       {
         path: 'user',
         name:'user',

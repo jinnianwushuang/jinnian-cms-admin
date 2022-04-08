@@ -21,6 +21,7 @@ export const columns = [
     field: (row) => row.name,
     format: (val) => `${val}`,
   },
+  { name: "password", align: "left", label: "密码", field: "password" },
   { name: "mark", align: "left", label: "备注", field: "mark" ,format: utils.default_format_substring },
 
 
